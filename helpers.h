@@ -2,13 +2,33 @@
 #define _HELPERS_H
 
 #include <stdint.h>
+#include "php.h"
+#include "zend_exceptions.h"
 
-static const char* invalid_sample_rate_error = "sample rate must be one of [8000, 12000, 16000, 24000, 48000], got %ld";
-static const char* invalid_channel_error = "channels must be one of [1, 2], got %ld";
-static const char* invalid_application_error = "application must be one of [OPUS_APPLICATION_VOIP, OPUS_APPLICATION_AUDIO, OPUS_APPLICATION_LOWDELAY], got %ld";
-static const char* invalid_bandwidth_error = "bandwidth must be one of [OPUS_AUTO, OPUS_BANDWIDTH_NARROWBAND, OPUS_BANDWIDTH_MEDIUMBAND, OPUS_BANDWIDTH_WIDEBAND, OPUS_BANDWIDTH_SUPERWIDEBAND, OPUS_BANDWIDTH_FULLBAND], got %ld";
-static const char* invalid_bitrate_error = "bitrate must be one of [OPUS_AUTO, OPUS_BITRATE_MAX] or between 500 and 512,000 incluside, got %ld";
-static const char* invalid_frame_size_error = "frame size must be one of [OPUS_FRAMESIZE_ARG, OPUS_FRAMESIZE_2_5_MS, OPUS_FRAMESIZE_5_MS, OPUS_FRAMESIZE_10_MS, OPUS_FRAMESIZE_20_MS, OPUS_FRAMESIZE_40_MS, OPUS_FRAMESIZE_60_MS, OPUS_FRAMESIZE_80_MS, OPUS_FRAMESIZE_100_MS, OPUS_FRAMESIZE_120_MS], got %ld";
+#define THROW(code, msg, args...) \
+	zend_throw_exception_ex(opus_exception_ce, code, msg, args); \
+	return;
+
+#define CTOP_CONST(c) \
+	CTOP_CONST_EX(c, #c);
+
+#define CTOP_CONST_EX(c, alias) \
+	REGISTER_LONG_CONSTANT(alias, c, CONST_CS | CONST_PERSISTENT);
+
+#define HANDLE_OPUS_ERR(e, msg) \
+	if (e != OPUS_OK) { \
+		zend_throw_exception_ex(opus_exception_ce, e, "%s: %s", msg, opus_strerror(e)); \
+		return; \
+	}
+
+extern zend_class_entry *opus_exception_ce;
+
+extern const char* invalid_sample_rate_error;
+extern const char* invalid_channel_error;
+extern const char* invalid_application_error;
+extern const char* invalid_bandwidth_error;
+extern const char* invalid_bitrate_error;
+extern const char* invalid_frame_size_error;
 
 int validate_sample_rate(int32_t sample_rate);
 int validate_channels(int8_t channels);
