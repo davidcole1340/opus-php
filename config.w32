@@ -1,0 +1,7 @@
+ARG_ENABLE('opus', 'opus support', 'no');
+
+if (PHP_OPUS != 'no') {
+	AC_DEFINE('HAVE_OPUS', 1, 'opus support enabled');
+
+	EXTENSION('opus', 'opus.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
