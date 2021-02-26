@@ -12,4 +12,9 @@ extern zend_module_entry opus_module_entry;
 ZEND_TSRMLS_CACHE_EXTERN()
 # endif
 
+typedef struct opus_encoder_t {
+    OpusEncoder *encoder;
+    zend_object std;
+} opus_encoder_t;
+
 #endif	/* PHP_OPUS_H */
