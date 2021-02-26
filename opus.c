@@ -125,7 +125,7 @@ PHP_METHOD(OpusEncoder, __construct)
 		THROW(-1, invalid_channel_error, channels);
 	}
 
-	if (validate_application(application)) {
+	if (! validate_application(application)) {
 		THROW(-1, invalid_application_error, application);
 	}
 

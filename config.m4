@@ -37,5 +37,5 @@ if test "$PHP_OPUS" != "no"; then
 
   PHP_SUBST(OPUS_SHARED_LIBADD)
 
-  PHP_NEW_EXTENSION(opus, opus.c, $ext_shared)
+  PHP_NEW_EXTENSION(opus, opus.c helpers.c, $ext_shared)
 fi
