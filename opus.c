@@ -4,6 +4,7 @@
 # include "config.h"
 #endif
 
+#include "opus.h"
 #include "php.h"
 #include "ext/standard/info.h"
 #include "php_opus.h"
@@ -16,32 +17,40 @@
 	ZEND_PARSE_PARAMETERS_END()
 #endif
 
-/* {{{ void test1() */
-PHP_FUNCTION(test1)
+PHP_FUNCTION(opus_version)
 {
-	ZEND_PARSE_PARAMETERS_NONE();
-
-	php_printf("The extension %s is loaded and working!\r\n", "opus");
-}
-/* }}} */
-
-/* {{{ string test2( [ string $var ] ) */
-PHP_FUNCTION(test2)
-{
-	char *var = "World";
-	size_t var_len = sizeof("World") - 1;
 	zend_string *retval;
 
-	ZEND_PARSE_PARAMETERS_START(0, 1)
-		Z_PARAM_OPTIONAL
-		Z_PARAM_STRING(var, var_len)
-	ZEND_PARSE_PARAMETERS_END();
-
-	retval = strpprintf(0, "Hello %s", var);
+	retval = strpprintf(0, "%s", opus_get_version_string());
 
 	RETURN_STR(retval);
 }
-/* }}}*/
+// /* {{{ void test1() */
+// PHP_FUNCTION(test1)
+// {
+// 	ZEND_PARSE_PARAMETERS_NONE();
+
+// 	php_printf("The extension %s is loaded and working!\r\n", "opus");
+// }
+// /* }}} */
+
+// /* {{{ string test2( [ string $var ] ) */
+// PHP_FUNCTION(test2)
+// {
+// 	char *var = "World";
+// 	size_t var_len = sizeof("World") - 1;
+// 	zend_string *retval;
+
+// 	ZEND_PARSE_PARAMETERS_START(0, 1)
+// 		Z_PARAM_OPTIONAL
+// 		Z_PARAM_STRING(var, var_len)
+// 	ZEND_PARSE_PARAMETERS_END();
+
+// 	retval = strpprintf(0, "Hello %s", var);
+
+// 	RETURN_STR(retval);
+// }
+// /* }}}*/
 
 /* {{{ PHP_RINIT_FUNCTION */
 PHP_RINIT_FUNCTION(opus)
@@ -59,6 +68,7 @@ PHP_MINFO_FUNCTION(opus)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "opus support", "enabled");
+	php_info_print_table_row(2, "libopus version", opus_get_version_string());
 	php_info_print_table_end();
 }
 /* }}} */

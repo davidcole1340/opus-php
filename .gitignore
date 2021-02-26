@@ -1,5 +1,11 @@
+# general
+.vscode
+test.php
+
+# ext
 *.lo
 *.la
+config.h.in*
 .libs
 acinclude.m4
 aclocal.m4
