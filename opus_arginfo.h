@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6e8a174dd4e9b37e3391d0a07c6765952812b94e */
+ * Stub hash: 6f4683463b7e1343f19ac152d2faef818b35d739 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_opus_version, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
@@ -85,6 +85,32 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setChannelsFor
 	ZEND_ARG_TYPE_INFO(0, channels, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_OpusEncoder_setInbandFEC arginfo_class_OpusEncoder_setPhaseInversion
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setLsbDepth, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, lsb, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setMaxBandwidth, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, maxBandwidth, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setPacketLossPercentage, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, packetLossPercentage, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_OpusEncoder_setPrediction arginfo_class_OpusEncoder_setPhaseInversion
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setSignal, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, signal, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_OpusEncoder_setVbrEnabled arginfo_class_OpusEncoder_setPhaseInversion
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setVbrConstrained, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, constrained, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
 
 ZEND_FUNCTION(opus_version);
 ZEND_METHOD(OpusEncoder, __construct);
@@ -116,6 +142,14 @@ ZEND_METHOD(OpusEncoder, setComplexity);
 ZEND_METHOD(OpusEncoder, setDtxState);
 ZEND_METHOD(OpusEncoder, setFrameDuration);
 ZEND_METHOD(OpusEncoder, setChannelsForced);
+ZEND_METHOD(OpusEncoder, setInbandFEC);
+ZEND_METHOD(OpusEncoder, setLsbDepth);
+ZEND_METHOD(OpusEncoder, setMaxBandwidth);
+ZEND_METHOD(OpusEncoder, setPacketLossPercentage);
+ZEND_METHOD(OpusEncoder, setPrediction);
+ZEND_METHOD(OpusEncoder, setSignal);
+ZEND_METHOD(OpusEncoder, setVbrEnabled);
+ZEND_METHOD(OpusEncoder, setVbrConstrained);
 
 
 static const zend_function_entry ext_functions[] = {
@@ -154,5 +188,13 @@ static const zend_function_entry class_OpusEncoder_methods[] = {
 	ZEND_ME(OpusEncoder, setDtxState, arginfo_class_OpusEncoder_setDtxState, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, setFrameDuration, arginfo_class_OpusEncoder_setFrameDuration, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, setChannelsForced, arginfo_class_OpusEncoder_setChannelsForced, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setInbandFEC, arginfo_class_OpusEncoder_setInbandFEC, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setLsbDepth, arginfo_class_OpusEncoder_setLsbDepth, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setMaxBandwidth, arginfo_class_OpusEncoder_setMaxBandwidth, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setPacketLossPercentage, arginfo_class_OpusEncoder_setPacketLossPercentage, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setPrediction, arginfo_class_OpusEncoder_setPrediction, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setSignal, arginfo_class_OpusEncoder_setSignal, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setVbrEnabled, arginfo_class_OpusEncoder_setVbrEnabled, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, setVbrConstrained, arginfo_class_OpusEncoder_setVbrConstrained, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };

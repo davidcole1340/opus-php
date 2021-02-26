@@ -14,6 +14,9 @@
 		returnMacro; \
 	}
 
+#define Z_OPUS_ENCODER_P(zv) \
+	((opus_encoder_t*)((char*)(Z_OBJ_P(zv)) - XtOffsetOf(opus_encoder_t, std)))
+
 typedef struct opus_encoder_t {
     OpusEncoder *encoder;
     zend_object std;

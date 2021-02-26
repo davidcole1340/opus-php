@@ -27,14 +27,17 @@ extern const char* invalid_sample_rate_error;
 extern const char* invalid_channel_error;
 extern const char* invalid_application_error;
 extern const char* invalid_bandwidth_error;
+extern const char* invalid_max_bandwidth_error;
 extern const char* invalid_bitrate_error;
 extern const char* invalid_frame_size_error;
+extern const char* invalid_signal_error;
 
 int validate_sample_rate(int32_t sample_rate);
 int validate_channels(int8_t channels);
 int validate_application(int32_t application);
-int validate_bandwidth(int32_t bandwidth);
+int validate_bandwidth(int32_t bandwidth, uint8_t opus_auto);
 int validate_bitrate(int32_t bitrate);
 int validate_framesize(int32_t frame_size);
+int validate_signal(int32_t signal);
 
 #endif

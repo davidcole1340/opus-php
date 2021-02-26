@@ -1,9 +1,6 @@
 #include "encoder.h"
 #include "helpers.h"
 
-#define Z_OPUS_ENCODER_P(zv) \
-	((opus_encoder_t*)((char*)(Z_OBJ_P(zv)) - XtOffsetOf(opus_encoder_t, std)))
-
 zend_object *opus_encoder_new(zend_class_entry *ce)
 {
 	opus_encoder_t *encoder = zend_object_alloc(sizeof(opus_encoder_t), ce);
@@ -112,7 +109,7 @@ PHP_METHOD(OpusEncoder, setBandwidth)
 		Z_PARAM_LONG(bandwidth)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (! validate_bandwidth(bandwidth)) {
+	if (! validate_bandwidth(bandwidth, true)) {
 		THROW(0, invalid_bandwidth_error, bandwidth);
 	}
 	
@@ -199,4 +196,124 @@ PHP_METHOD(OpusEncoder, setChannelsForced)
 
 	int err = opus_encoder_ctl(self->encoder, OPUS_SET_FORCE_CHANNELS(channels));
 	HANDLE_OPUS_ERR(err, "could not set forced channels");
+}
+
+PHP_METHOD(OpusEncoder, setInbandFEC)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_bool fec;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(fec)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_INBAND_FEC(fec));
+	HANDLE_OPUS_ERR(err, "could not set forced channels");
+}
+
+PHP_METHOD(OpusEncoder, setLsbDepth)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_long lsb_depth;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(lsb_depth)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	if (lsb_depth < 8 || lsb_depth > 24) {
+		THROW(0, "LSB depth must be between 8 and 24 inclusive, got %ld", lsb_depth);
+	}
+
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_LSB_DEPTH(lsb_depth));
+	HANDLE_OPUS_ERR(err, "could not set lsb depth");
+}
+
+PHP_METHOD(OpusEncoder, setMaxBandwidth)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_long max_bandwidth;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(max_bandwidth)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	if (! validate_bandwidth(max_bandwidth, false)) {
+		THROW(0, invalid_bandwidth_error, max_bandwidth);
+	}
+
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_MAX_BANDWIDTH(max_bandwidth));
+	HANDLE_OPUS_ERR(err, "could not set max bandwidth");
+}
+
+PHP_METHOD(OpusEncoder, setPacketLossPercentage)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_long packet_loss_percentage;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(packet_loss_percentage)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	if (packet_loss_percentage < 0 || packet_loss_percentage > 100) {
+		THROW(0, "packet loss percentage must be between 0 and 100 inclusive, got %ld", packet_loss_percentage);
+	}
+
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_PACKET_LOSS_PERC(packet_loss_percentage));
+	HANDLE_OPUS_ERR(err, "could not set packet loss percentage");
+}
+
+PHP_METHOD(OpusEncoder, setPrediction)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_bool prediction;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(prediction)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_PREDICTION_DISABLED(!prediction));
+	HANDLE_OPUS_ERR(err, "could not set prediction");
+}
+
+PHP_METHOD(OpusEncoder, setSignal)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_long signal;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(signal)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (! validate_signal(signal)) {
+		THROW(0, invalid_signal_error, signal);
+	}
+
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_SIGNAL(signal));
+	HANDLE_OPUS_ERR(err, "could not set signal");
+}
+
+PHP_METHOD(OpusEncoder, setVbrEnabled)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_bool enabled;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(enabled)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_VBR(enabled));
+	HANDLE_OPUS_ERR(err, "could not set vbr state");
+}
+
+PHP_METHOD(OpusEncoder, setVbrConstrained)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zend_bool constrained;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(constrained)
+	ZEND_PARSE_PARAMETERS_END();
+	
+	int err = opus_encoder_ctl(self->encoder, OPUS_SET_VBR_CONSTRAINT(constrained));
+	HANDLE_OPUS_ERR(err, "could not set vbr constraint state");
 }

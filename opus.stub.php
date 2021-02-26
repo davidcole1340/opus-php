@@ -52,13 +52,13 @@ class OpusEncoder
     public function setDtxState(bool $dtx): void {}
     public function setFrameDuration(int $frameDuration): void {}
     public function setChannelsForced(int $channels): void {}
-    // public function setInbandFEC(bool $enabled): void {}
-    // public function setLsbDepth(int $lsb): void {}
-    // public function setMaxBandwidth(int $maxBandwidth): void {}
-    // public function setPacketLossPercentage(int $packetLossPercentage): void {}
-    // public function setPrediction(bool $enabled): void {}
-    // public function setSignal(int $signal): void {}
-    // public function setVbr(int $vbr): void {}
-    // public function setVbrConstraint(int $vbrConstraint): void {}
+    public function setInbandFEC(bool $enabled): void {}
+    public function setLsbDepth(int $lsb): void {}
+    public function setMaxBandwidth(int $maxBandwidth): void {}
+    public function setPacketLossPercentage(int $packetLossPercentage): void {}
+    public function setPrediction(bool $enabled): void {}
+    public function setSignal(int $signal): void {}
+    public function setVbrEnabled(bool $enabled): void {}
+    public function setVbrConstrained(bool $constrained): void {}
     // END ENCODER CTLS
 }
