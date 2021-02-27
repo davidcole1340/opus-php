@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6f4683463b7e1343f19ac152d2faef818b35d739 */
+ * Stub hash: d3ce1dc4af975eb90342dca682eca03724a24a04 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_opus_version, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
@@ -8,6 +8,9 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_class_OpusEncoder___construct, 0, 0, 0)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, sample_rate, IS_LONG, 0, "48000")
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, channels, IS_LONG, 0, "2")
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, application, IS_LONG, 0, "0")
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_OpusEncoder___destruct, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_reset, 0, 0, IS_VOID, 0)
@@ -111,9 +114,14 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setVbrConstrai
 	ZEND_ARG_TYPE_INFO(0, constrained, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_encode, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, pcm, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
 
 ZEND_FUNCTION(opus_version);
 ZEND_METHOD(OpusEncoder, __construct);
+ZEND_METHOD(OpusEncoder, __destruct);
 ZEND_METHOD(OpusEncoder, reset);
 ZEND_METHOD(OpusEncoder, getFinalRange);
 ZEND_METHOD(OpusEncoder, getBandwidth);
@@ -150,6 +158,7 @@ ZEND_METHOD(OpusEncoder, setPrediction);
 ZEND_METHOD(OpusEncoder, setSignal);
 ZEND_METHOD(OpusEncoder, setVbrEnabled);
 ZEND_METHOD(OpusEncoder, setVbrConstrained);
+ZEND_METHOD(OpusEncoder, encode);
 
 
 static const zend_function_entry ext_functions[] = {
@@ -160,6 +169,7 @@ static const zend_function_entry ext_functions[] = {
 
 static const zend_function_entry class_OpusEncoder_methods[] = {
 	ZEND_ME(OpusEncoder, __construct, arginfo_class_OpusEncoder___construct, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, __destruct, arginfo_class_OpusEncoder___destruct, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, reset, arginfo_class_OpusEncoder_reset, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, getFinalRange, arginfo_class_OpusEncoder_getFinalRange, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, getBandwidth, arginfo_class_OpusEncoder_getBandwidth, ZEND_ACC_PUBLIC)
@@ -196,5 +206,6 @@ static const zend_function_entry class_OpusEncoder_methods[] = {
 	ZEND_ME(OpusEncoder, setSignal, arginfo_class_OpusEncoder_setSignal, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, setVbrEnabled, arginfo_class_OpusEncoder_setVbrEnabled, ZEND_ACC_PUBLIC)
 	ZEND_ME(OpusEncoder, setVbrConstrained, arginfo_class_OpusEncoder_setVbrConstrained, ZEND_ACC_PUBLIC)
+	ZEND_ME(OpusEncoder, encode, arginfo_class_OpusEncoder_encode, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };

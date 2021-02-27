@@ -39,6 +39,13 @@ PHP_METHOD(OpusEncoder, __construct)
 	HANDLE_OPUS_ERR(err, "could not create new opus encoder");
 
 	self->encoder = encoder;
+	self->channels = channels;
+}
+
+PHP_METHOD(OpusEncoder, __destruct)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	opus_encoder_destroy(self->encoder);
 }
 
 OPUS_ENCODER_GET(getFinalRange, opus_uint32, OPUS_GET_FINAL_RANGE, RETURN_LONG(result));
@@ -316,4 +323,57 @@ PHP_METHOD(OpusEncoder, setVbrConstrained)
 	
 	int err = opus_encoder_ctl(self->encoder, OPUS_SET_VBR_CONSTRAINT(constrained));
 	HANDLE_OPUS_ERR(err, "could not set vbr constraint state");
+}
+
+PHP_METHOD(OpusEncoder, encode)
+{
+	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
+	zval *val, *zend_pcm;
+	zend_array *retval;
+	uint32_t i = 0;
+	int32_t count;
+	opus_int16 *pcm;
+	unsigned char *output;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY(zend_pcm)
+	ZEND_PARSE_PARAMETERS_END();
+
+ 	pcm = (opus_int16*) malloc(sizeof(*pcm)*zend_pcm->value.arr->nNumOfElements);
+
+	// convert zend array to opus array
+	ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(zend_pcm), val)
+	{
+		pcm[i++] = (opus_int16)val->value.lval;
+	}
+	ZEND_HASH_FOREACH_END();
+
+	// calculate frame size and output max size
+	// this is wrong - needs to be changed, but it does output the correct
+	// opus, just uses too much memory to do so
+	int frame_size = zend_pcm->value.arr->nNumOfElements/self->channels;
+	int output_size = frame_size*self->channels*2;
+	output = (unsigned char*) malloc(sizeof(*output)*output_size);
+
+	// encode the PCM into opus
+	count = opus_encode(self->encoder, (const opus_int16*) pcm, frame_size, output, output_size);
+
+	// if `opus_encode` returns less than 0 it indicates an error
+	if (count < 0) {
+		THROW(count, opus_strerror(count), NULL);
+	}
+
+	// convert the C array back into a PHP zend array
+	retval = zend_new_array(count);
+
+	for (i = 0; i < count; i++) {
+		ZVAL_LONG(val, output[i]);
+		zend_hash_index_add(retval, i, val);
+	}
+	
+	// return and clean up
+	RETVAL_ARR(retval);
+
+	free(output);
+	free(pcm);
 }

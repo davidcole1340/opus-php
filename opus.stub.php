@@ -18,6 +18,7 @@ function opus_version(): string {}
 class OpusEncoder
 {
     public function __construct(int $sample_rate = 48000, int $channels = 2, int $application = 0) {}
+    public function __destruct() {}
 
     // START GENERIC CTLS - https://opus-codec.org/docs/opus_api-1.3.1/group__opus__genericctls.html
     public function reset(): void {}
@@ -61,4 +62,8 @@ class OpusEncoder
     public function setVbrEnabled(bool $enabled): void {}
     public function setVbrConstrained(bool $constrained): void {}
     // END ENCODER CTLS
+
+    // START ENCODER FUNCTIONS
+    public function encode(array $pcm): array {}
+    // END ENCODER FUNCTIONS
 }

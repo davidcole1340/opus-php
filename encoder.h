@@ -19,6 +19,7 @@
 
 typedef struct opus_encoder_t {
     OpusEncoder *encoder;
+	uint8_t channels;
     zend_object std;
 } opus_encoder_t;
 
