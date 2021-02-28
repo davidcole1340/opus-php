@@ -64,6 +64,6 @@ class OpusEncoder
     // END ENCODER CTLS
 
     // START ENCODER FUNCTIONS
-    public function encode(array $pcm): array {}
+    public function encode(array $pcm, int $frameSize): array {}
     // END ENCODER FUNCTIONS
 }

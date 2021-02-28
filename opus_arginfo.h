@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d3ce1dc4af975eb90342dca682eca03724a24a04 */
+ * Stub hash: 149c85609c59ff3fc928f9f5bd75241c0712d189 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_opus_version, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
@@ -114,8 +114,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_setVbrConstrai
 	ZEND_ARG_TYPE_INFO(0, constrained, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_encode, 0, 1, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_OpusEncoder_encode, 0, 2, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, pcm, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, frameSize, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 

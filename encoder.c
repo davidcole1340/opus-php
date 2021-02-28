@@ -329,14 +329,16 @@ PHP_METHOD(OpusEncoder, encode)
 {
 	opus_encoder_t *self = Z_OPUS_ENCODER_P(ZEND_THIS);
 	zval *val, *zend_pcm;
+	zend_long frame_size;
 	zend_array *retval;
 	uint32_t i = 0;
 	int32_t count;
 	opus_int16 *pcm;
 	unsigned char *output;
 
-	ZEND_PARSE_PARAMETERS_START(1, 1)
+	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_ARRAY(zend_pcm)
+		Z_PARAM_LONG(frame_size)
 	ZEND_PARSE_PARAMETERS_END();
 
  	pcm = (opus_int16*) malloc(sizeof(*pcm)*zend_pcm->value.arr->nNumOfElements);
@@ -351,8 +353,7 @@ PHP_METHOD(OpusEncoder, encode)
 	// calculate frame size and output max size
 	// this is wrong - needs to be changed, but it does output the correct
 	// opus, just uses too much memory to do so
-	int frame_size = zend_pcm->value.arr->nNumOfElements/self->channels;
-	int output_size = frame_size*self->channels*2;
+	long output_size = frame_size*self->channels*2;
 	output = (unsigned char*) malloc(sizeof(*output)*output_size);
 
 	// encode the PCM into opus
