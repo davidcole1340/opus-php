@@ -1,6 +1,7 @@
 # general
 .vscode
 test.php
+.ccls*
 
 # ext
 *.lo
