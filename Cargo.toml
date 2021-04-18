@@ -9,5 +9,5 @@ name = "opusphp"
 crate-type = ["dylib"]
 
 [dependencies]
-ext-php-rs = "0.0.4"
+ext-php-rs = { git = "https://github.com/davidcole1340/ext-php-rs", branch = "master" }
 audiopus = { git = "https://github.com/davidcole1340/audiopus", branch = "version_fn" }

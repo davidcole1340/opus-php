@@ -1,11 +1,15 @@
+use audiopus::Application;
 use ext_php_rs::{
     info_table_end, info_table_row, info_table_start,
     php::{
+        constants::IntoConst,
         enums::DataType,
         function::FunctionBuilder,
         module::{ModuleBuilder, ModuleEntry},
     },
 };
+
+use crate::encoder::OpusEncoder;
 
 #[no_mangle]
 pub extern "C" fn get_module() -> *mut ModuleEntry {
@@ -27,6 +31,14 @@ pub extern "C" fn opus_info(_module: *mut ModuleEntry) {
     info_table_end!();
 }
 
-pub extern "C" fn opus_module_startup(_type: i32, _module_number: i32) -> i32 {
+pub extern "C" fn opus_module_startup(_type: i32, module_number: i32) -> i32 {
+    OpusEncoder::build_class_object();
+
+    // Register constants
+    (Application::Voip as i32).register_constant("OPUS_APPLICATION_VOIP", module_number);
+    (Application::Audio as i32).register_constant("OPUS_APPLICATION_AUDIO", module_number);
+    (Application::LowDelay as i32)
+        .register_constant("OPUS_APPLICATION_RESTRICTED_LOWDELAY", module_number);
+
     0
 }
