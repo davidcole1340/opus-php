@@ -10,4 +10,4 @@ crate-type = ["dylib"]
 
 [dependencies]
 ext-php-rs = { git = "https://github.com/davidcole1340/ext-php-rs", branch = "master" }
-audiopus = { git = "https://github.com/davidcole1340/audiopus", branch = "version_fn" }
+audiopus = { git = "https://github.com/Lakelezz/audiopus", branch = "stable-changes" }
