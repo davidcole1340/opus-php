@@ -4,21 +4,22 @@ Opus bindings for PHP.
 
 ## Requirements
 
-- Unix-based operating system. Windows is not yet supported (but will come with time).
-- Essentials to build PHP extensions for your operating system.
-- `opus` installed and known to `pkg-config`.
+- Rust.
+- PHP 8.0.
+- Linux or Darwin based operating system.
+- [ext-php-rs](https://github.com/davidcole1340/ext-php-rs#requirements) requirements.
+- [libopus 1.3.1 or later](https://opus-codec.org/downloads/).
 
 ## Installation
 
 ```sh
 $ git clone git@github.com:davidcole1340/opus-php.git
 $ cd opus-php
-$ phpize
-$ ./configure
-$ make && sudo make install
-$ # add to your php.ini
-$ php -r 'echo opus_version();' # libopus vx.x.x
+$ cargo build --release
 ```
+
+This will produce a PHP extension file at `target/release/libopus.{so|dylib}`.
+You can then install this like any other PHP extension by adding it to your `php.ini` file.
 
 ## License
 
