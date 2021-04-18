@@ -23,7 +23,7 @@ pub extern "C" fn get_module() -> *mut ModuleEntry {
 
 pub extern "C" fn opus_info(_module: *mut ModuleEntry) {
     info_table_start!();
-    info_table_row!("Opus Version", "todo");
+    info_table_row!("Opus Version", audiopus::version());
     info_table_end!();
 }
 

@@ -18,7 +18,7 @@ $ cd opus-php
 $ cargo build --release
 ```
 
-This will produce a PHP extension file at `target/release/libopus.{so|dylib}`.
+This will produce a PHP extension file at `target/release/libopusphp.{so|dylib}`.
 You can then install this like any other PHP extension by adding it to your `php.ini` file.
 
 ## License
