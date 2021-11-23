@@ -5,9 +5,10 @@ authors = ["David Cole <david.cole1340@gmail.com>"]
 edition = "2018"
 
 [lib]
-name = "opusphp"
-crate-type = ["dylib"]
+crate-type = ["cdylib"]
 
 [dependencies]
-ext-php-rs = { git = "https://github.com/davidcole1340/ext-php-rs", branch = "master" }
+ext-php-rs = { git = "https://github.com/davidcole1340/ext-php-rs", branch = "master", features = ["anyhow"] }
+# ext-php-rs = { version = "*", features = ["anyhow"] }
+anyhow = "*"
 audiopus = { git = "https://github.com/Lakelezz/audiopus", branch = "stable-changes" }
