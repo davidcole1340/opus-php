@@ -29,14 +29,14 @@ impl OpusEncoder {
     /// @return OpusEncoder
     pub fn __construct(sample_rate: i32, channels: i32, application: i32) -> Result<Self> {
         let sample_rate = SampleRate::try_from(sample_rate)
-            .context("Invalid value given for sample rate. Must be in Hz, one of 8000, 12000, 16000, 24000, 48000.")?;
+            .context("Invalid value given for sample rate. Must be in Hz, one of 8000, 12000, 16000, 24000, 48000")?;
         let channels = match channels {
             1 => Channels::Mono,
             2 => Channels::Stereo,
-            _ => bail!("Invalid value given for channels. Must be 1 or 2."),
+            _ => bail!("Invalid value given for channels. Must be 1 or 2"),
         };
         let application = Application::try_from(application)
-            .context("Invalid value given for application. Must be one of `OPUS_APPLICATION_VOIP`, `OPUS_APPLICATION_AUDIO` or `OPUS_APPLICATION_LOW_DELAY`.")?;
+            .context("Invalid value given for application. Must be one of `OPUS_APPLICATION_VOIP`, `OPUS_APPLICATION_AUDIO` or `OPUS_APPLICATION_LOW_DELAY`")?;
 
         Ok(Self {
             encoder: Encoder::new(sample_rate, channels, application)
