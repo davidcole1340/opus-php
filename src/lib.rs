@@ -74,8 +74,8 @@ impl OpusEncoder {
 ///
 /// @return string
 #[php_function]
-pub fn opus_version() -> String {
-    audiopus::version().into()
+pub fn opus_version() -> &'static str {
+    audiopus::version()
 }
 
 #[php_module]
